@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header, footer, .print\:hidden {
+    display: none !important;
+  }
+  table {
+    font-size: 10px !important;
+    width: 100% !important;
+  }
+
+  body.is-printing-attendance-sheet * {
+    visibility: hidden;
+  }
+  body.is-printing-attendance-sheet .printable-attendance-register,
+  body.is-printing-attendance-sheet .printable-attendance-register * {
+    visibility: visible;
+  }
+  body.is-printing-attendance-sheet .printable-attendance-register {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+

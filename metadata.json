@@ -1,0 +1,6 @@
+{
+  "name": "ડિજિટલ હાજરી - ધોરણ ૬ (વાંઝિયાઆંબા)",
+  "description": "શાળા વાંઝિયાઆંબા (તા. હાલોલ, જિ. પંચમહાલ) માટે ધોરણ ૬ ની ફોટો પર ક્લિક આધારિત ઝડપી ડિજિટલ હાજરી પદ્ધતિ અને માસિક પત્રક.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
