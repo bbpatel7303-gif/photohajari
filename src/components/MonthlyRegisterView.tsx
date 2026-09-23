@@ -6,9 +6,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Filter,
+  TrendingUp,
 } from 'lucide-react';
 import { Student, AttendanceRecord, SchoolConfig } from '../types';
 import { GUJARATI_MONTHS, GUJARATI_DAYS } from '../utils/storage';
+import { MonthlyAttendanceChart } from './MonthlyAttendanceChart';
 
 interface MonthlyRegisterViewProps {
   students: Student[];
@@ -25,6 +27,7 @@ export const MonthlyRegisterView: React.FC<MonthlyRegisterViewProps> = ({
   const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth() + 1); // 1-12
   const [genderFilter, setGenderFilter] = useState<'all' | 'boy' | 'girl'>('all');
+  const [showChart, setShowChart] = useState<boolean>(true);
 
   // Days in selected month
   const daysInMonth = useMemo(() => {
@@ -189,6 +192,20 @@ export const MonthlyRegisterView: React.FC<MonthlyRegisterViewProps> = ({
           </div>
 
           <button
+            type="button"
+            onClick={() => setShowChart(!showChart)}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+              showChart
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-300 font-bold'
+                : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+            }`}
+            title="હાજરી ટ્રેન્ડ આલેખ (Line Chart) બતાવો અથવા છુપાવો"
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+            <span>{showChart ? 'આલેખ સક્રિય' : 'આલેખ બતાવો'}</span>
+          </button>
+
+          <button
             onClick={handleExportCSV}
             className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold border border-slate-200 transition-colors"
           >
@@ -205,6 +222,17 @@ export const MonthlyRegisterView: React.FC<MonthlyRegisterViewProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Visual Attendance Trend Line Chart (Recharts) */}
+      {showChart && (
+        <MonthlyAttendanceChart
+          students={filteredStudents}
+          records={records}
+          selectedYear={selectedYear}
+          selectedMonth={selectedMonth}
+          daysInMonth={daysInMonth}
+        />
+      )}
 
       {/* Official Gujarat School Register Table */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
